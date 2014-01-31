@@ -1,0 +1,208 @@
+%===============================================================================
+% Zweck:    KTR-Präsentation-Vorlage
+% Erstellt: 15.04.2013
+% Autor:    M.G.
+%===============================================================================
+
+%===============================================================================
+% Zum Kompilieren pdflatex und bibtex ausführen.
+%	Konfiguration: in texmaker unter Benutzer -> Benutzerbefehle einen neuen Befehl anlegen: pdflatex -synctex=1 -interaction=nonstopmode %.tex | bibtex % | pdflatex -synctex=1 -interaction=nonstopmode %.tex | pdflatex -synctex=1 -interaction=nonstopmode %.tex
+%	Entsprechende Informationen in den config/metainfo verändern
+% Zur Auswahl der Sprache im folgenden Befehl
+% ngerman für deutsch eintragen, english für Englisch.
+%===============================================================================
+
+% Options ngerman, english
+\newcommand{\lang}{english}
+
+\documentclass[11pt,\lang ,
+%draft,
+%handout,
+compress
+]{beamer}
+% Für den Header
+% Modify for different languages
+\usepackage{ifthen}
+
+\newcommand{\unibastring}{\ifthenelse{\equal{\lang}{ngerman}}{Universit\"at Bamberg}{University of Bamberg}}
+
+\input{config/commands}
+
+%% Fancy Quotes
+\makeatletter
+\tikzset{%
+  fancy quotes/.style={
+    text width=\fq@width pt,
+    align=justify,
+    inner sep=1em,
+    anchor=north west,
+    minimum width=\textwidth,
+  },
+  fancy quotes width/.initial={.8\textwidth},
+  fancy quotes marks/.style={
+    scale=8,
+    text=white,
+    inner sep=0pt,
+  },
+  fancy quotes opening/.style={
+    fancy quotes marks,
+  },
+  fancy quotes closing/.style={
+    fancy quotes marks,
+  },
+  fancy quotes background/.style={
+    show background rectangle,
+    inner frame xsep=0pt,
+    background rectangle/.style={
+      fill=unibagrayIV,
+      rounded corners,
+    },
+  }
+}
+
+\newenvironment{fancyquotes}[1][]{%
+\noindent
+\tikzpicture[fancy quotes background]
+\node[fancy quotes opening,anchor=north west] (fq@ul) at (0,0) {``};
+\tikz@scan@one@point\pgfutil@firstofone(fq@ul.east)
+\pgfmathsetmacro{\fq@width}{\textwidth - 2*\pgf@x}
+\node[fancy quotes,#1] (fq@txt) at (fq@ul.north west) \bgroup}
+{\egroup;
+\node[overlay,fancy quotes closing,anchor=east] at (fq@txt.south east) {''};
+\endtikzpicture}
+
+\makeatother
+
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{fancyquotes}}
+  {\signed{\usebox\mybox}\end{fancyquotes}}
+
+
+
+\input{config/hyphenation}
+
+\setbeamertemplate{caption}[numbered]
+%\numberwithin{figure}{section}
+\begin{document}
+
+\frame{\titlepage}
+
+\AtBeginSection[]
+{
+  \frame<handout:0>
+  {
+    \frametitle{Outline}
+    \tableofcontents[currentsection,hideallsubsections]
+  }
+}
+
+\AtBeginSubsection[]
+{
+  \frame<handout:0>
+  {
+    \frametitle{Outline}
+    \tableofcontents[sectionstyle=show/hide,subsectionstyle=show/shaded/hide,subsubsectionstyle=hide]
+  }
+}
+
+%\AtBeginSubsubsection[]
+%{
+%  \frame<handout:0>
+%  {
+%    \frametitle{Outline}
+%    \tableofcontents[sectionstyle=show/hide,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+%  }
+%}
+
+\newcommand<>{\highlighton}[1]{%
+  \alt#2{\structure{#1}}{{#1}}
+}
+
+\newcommand{\icon}[1]{\pgfimage[height=1em]{#1}}
+
+
+
+%\section*{}
+%\begin{frame}{Content}
+%\tableofcontents
+%\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% Content starts here %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{}
+%\nocite*
+\begin{frame}{References}
+\def\newblock{\hskip .11em plus .33em minus .07em}
+\footnotesize
+\bibliographystyle{IEEEtran}
+\bibliography{literature/bib}
+\normalsize
+\end{frame}
+
+%\begin{frame}{Online Tutorials}
+%\begin{itemize}
+%\item \textbf{Android Developers:} \url{http://developer.android.com/guide/index.html}
+%\url{http://developer.android.com/resources/tutorials/hello-world.html}
+%\item \textbf{AndroidPIT}\\ \url{http://www.androidpit.de/de/android/wiki/view/Android_Anf\%C3\%A4nger_Workshop}
+%\item \textbf{Lars Vogel}\\ \url{http://www.vogella.com/articles/Android/article.html}
+%\url{http://www.vogella.com/android.html}
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Development Environments}
+%\begin{itemize}
+%\item \textbf{Java}\\
+%\url{http://www.oracle.com/technetwork/java/javase/downloads/index.html}
+%\item \textbf{Eclipse}\\
+%\url{http://www.eclipse.org/}
+%\item \textbf{Android SDK}\\
+%\url{http://developer.android.com/sdk/index.html}
+%\item \textbf{Android Eclipse Plugin} (Eclipse update site)\\
+%\url{https://dl-ssl.google.com/android/eclipse}
+%\end{itemize}
+%\end{frame}
+
+\input{content/history}
+
+\input{content/webrtc}
+
+\input{content/usage}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% References          %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{}
+%\begin{frame}[allowframebreaks]{References}
+%\def\newblock{\hskip .11em plus .33em minus .07em}
+%\scriptsize
+%\bibliographystyle{IEEEtran}
+%\bibliography{literature/bib}
+%\normalsize
+%\end{frame}
+%
+
+
+
+%% Last frame
+\frame{
+  \vspace{2cm}
+  {\huge Questions ?}
+
+  \vspace{20mm}
+  \nocite*
+  
+  \begin{flushright}  
+    Marcel Gro\ss mann
+    
+    \structure{\footnotesize{\href{mailto:marcel.grossmann@uni-bamberg.de}{marcel.grossmann@uni-bamberg.de}}}
+  \end{flushright}
+}
+
+
+\end{document}
