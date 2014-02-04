@@ -127,22 +127,13 @@ compress
 
 
 
-%\section*{}
-%\begin{frame}{Content}
-%\tableofcontents
-%\end{frame}
+\section*{}
+\begin{frame}{Content}
+\tableofcontents
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% Content starts here %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{}
-%\nocite*
-\begin{frame}{References}
-\def\newblock{\hskip .11em plus .33em minus .07em}
-\footnotesize
-\bibliographystyle{IEEEtran}
-\bibliography{literature/bib}
-\normalsize
-\end{frame}
 
 %\begin{frame}{Online Tutorials}
 %\begin{itemize}
@@ -167,25 +158,33 @@ compress
 %\end{itemize}
 %\end{frame}
 
+\section{Background}
 \input{content/history}
 
+\section{About WebRTC}
 \input{content/webrtc}
 
+\section[Usage of WebRTC]{WebRTC Peer-to-Peer Media}
 \input{content/usage}
+
+\section[APIs]{WebRTC Application Programming Interfaces}
+\input{content/api}
+
+\section[Protocols \& Standards]{WebRTC Protocols and IETF Standards}
+\input{content/protocols}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%% References          %%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section*{}
-%\begin{frame}[allowframebreaks]{References}
-%\def\newblock{\hskip .11em plus .33em minus .07em}
-%\scriptsize
-%\bibliographystyle{IEEEtran}
-%\bibliography{literature/bib}
-%\normalsize
-%\end{frame}
-%
+\section*{}
+\begin{frame}{References}
+\def\newblock{\hskip .11em plus .33em minus .07em}
+\footnotesize
+\bibliographystyle{IEEEtran}
+\bibliography{literature/bib}
+\normalsize
+\end{frame}
 
 
 

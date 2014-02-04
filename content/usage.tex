@@ -41,6 +41,51 @@
 \end{tikzpicture}
 \end{frame}
 
+\begin{frame}{High Level ICE Call Flow}
+\begin{columns}
+\column{.7\textwidth}
+\begin{figure}
+    \resizebox{1\textheight}{!}{
+    	\begin{scriptsize}
+\begin{sequencediagram}
+  \newthread[0]{unibagrayI}{a}{Agent A}
+  \newthread[0]{white}{n1}{NAT}
+  \newthread[3]{unibablueV}{s}{STUN Server} 
+  \newthread[3]{white}{n2}{NAT} 
+  \newthread[0]{unibagrayIII}{b}{Agent B}
+  
+  \mess[0]{a}{1 Gather transport addresses}{s}
+  \mess[0]{a}{2 Offer}{b}
+  \mess[0]{b}{1 Gather transport addresses}{s}
+  \mess[0]{b}{2 Answer}{a}
+  \mess[0]{a}{3 STUN check}{b}
+  \mess[0]{b}{3 STUN check}{a}
+  \mess[0]{a}{4 Media}{b}
+  \mess[0]{b}{4 Media}{a}
+  \mess[0]{a}{5 Keep-Alive}{b}
+  \mess[0]{b}{5 Keep-Alive}{a}
+ 
+\end{sequencediagram}
+\end{scriptsize}
+    }
+    \begin{tiny}
+       Transport address is IP address and port number
+     \end{tiny}
+\end{figure}
+\column{.3\textwidth}
+\begin{tiny}
+\begin{enumerate}
+\item Gather candidate transport addresses
+\item Exchange candidates over signaling channel
+\item Perform connectivity checks
+\item Choose selected pair and begin media transport
+\item Send keep-alives
+\end{enumerate}
+If either side detects a change iin IP address in use, ICE is restarted (back to step 1)
+\end{tiny}
+\end{columns}
+\end{frame}
+
 \begin{frame}{WebRTC Peer-to-Peer Media}\framesubtitle{P2P Media Can Stay Local to NAT}
 \begin{tikzpicture}
 \node at (0,0) {\includegraphics[page=15,width=\textwidth]{image/webrtc.pdf}};

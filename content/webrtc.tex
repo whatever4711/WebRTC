@@ -41,6 +41,46 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{WebRTC Triangle Call Flow}
+
+\begin{figure}
+    \resizebox{\textheight}{!}{
+    	\begin{scriptsize}
+\begin{sequencediagram}
+  \newthread[0]{unibagrayI}{m}{Browser M}
+  \newthread[3]{unibablueIV}{w}{Web Server}
+  \newthread[3]{unibagrayIII}{l}{Browser L}
+  
+  \mess[0]{m}{HTTPS GET}{w}
+  \mess[0]{w}{200 OK [HTML5/CSS/JavaScript]}{m}
+  
+  \mess[0]{l}{HTTPS GET}{w}
+  \mess[0]{w}{200 OK [HTML5/CSS/JavaScript]}{l}
+
+  \mess[0]{m}{HTTPS [SDP object M]}{w}
+  \draw[<-] (mess from) -- (mess to);
+  \mess[0]{w}{HTTPS [SDP object M]}{l}
+  \draw[<-] (mess from) -- (mess to);
+  \mess[0]{l}{HTTPS [SDP object L]}{w}
+  \draw[<-] (mess from) -- (mess to);
+  \mess[0]{w}{HTTPS [SDP object L]}{m}
+  \draw[<-] (mess from) -- (mess to);
+  
+  \mess[0]{m}{ICE Hole Punching}{l}
+  \draw[<-, thick] (mess from) -- (mess to);
+  \mess[0]{m}{Key Negotiation}{l}
+  \draw[<-, thick] (mess from) -- (mess to);
+  \mess[0]{m}{Secure Media or Data Session}{l}
+  \draw[<-, thick] (mess from) -- (mess to);
+ 
+\end{sequencediagram}
+\end{scriptsize}
+    }
+\end{figure}
+
+
+\end{frame}
+
 \begin{frame}{WebRTC Trapezoid}
 \begin{figure}
 \includegraphics[page=4,width=.6\textwidth]{image/webrtc.pdf}
@@ -52,15 +92,66 @@
 \end{itemize}
 \end{frame}
 
+\begin{frame}{WebRTC Tapezoid Call Flow with Jingle}
+
+\begin{figure}
+    \resizebox{1.4\textheight}{!}{
+    	\begin{scriptsize}
+\begin{sequencediagram}
+  \newthread[0]{unibagrayI}{m}{Browser M}
+  \newthread[3]{unibablueIV}{a}{Web Server A} 
+  \newthread[3]{unibablueV}{b}{Web Server B} 
+  \newthread[3]{unibagrayIII}{l}{Browser L}
+  
+  \mess[0]{m}{HTTPS GET}{a}
+  \mess[0]{a}{200 OK [HTML5/CSS/JavaScript]}{m}
+  
+  \mess[0]{l}{HTTPS GET}{b}
+  \mess[0]{b}{200 OK [HTML5/CSS/JavaScript]}{l}
+
+  \mess[0]{m}{HTTPS [SDP object M]}{a}
+  \draw[<-] (mess from) -- (mess to);
+  \mess[0]{a}{jingle action=`session-initiate'}{b}
+  \mess[0]{b}{HTTPS [SDP object M]}{l}
+  \draw[<-] (mess from) -- (mess to);
+  \mess[0]{l}{HTTPS [SDP object L]}{b}
+  \draw[<-] (mess from) -- (mess to);
+   \mess[0]{b}{jingle action=`session-accept'}{a}
+  \mess[0]{a}{HTTPS [SDP object L]}{m}
+  \draw[<-] (mess from) -- (mess to);
+  
+  \mess[0]{m}{ICE Hole Punching}{l}
+  \draw[<-, thick] (mess from) -- (mess to);
+  \mess[0]{m}{Key Negotiation}{l}
+  \draw[<-, thick] (mess from) -- (mess to);
+  \mess[0]{m}{Secure Media or Data Session}{l}
+  \draw[<-, thick] (mess from) -- (mess to);
+  
+   \mess[0]{l}{HTTPS[close]}{b}
+   \draw[<-] (mess from) -- (mess to);
+   \mess[0]{b}{jingle action=`session-terminate'}{a}
+   \mess[0]{a}{HTTPS[close]}{m}
+   \draw[<-] (mess from) -- (mess to);
+ 
+\end{sequencediagram}
+\end{scriptsize}
+    }
+\end{figure}
+
+
+\end{frame}
+
 \begin{frame}{WebRTC and SIP}
 \begin{figure}
-\includegraphics[page=5,width=.6\textwidth]{image/webrtc.pdf}
+\includegraphics[page=5,width=.5\textwidth]{image/webrtc.pdf}
 \end{figure}
+\begin{footnotesize}
 \begin{itemize}
 \item Peer Connection appears as a standard RTP media session, described by SDP
 \item Web Server implements a JSEP (JavaScript Session Establishment Protocol) to SIP signaling gateway
 \item SIP Endpoint must support RTCWEB Media extensions (ICE NAT Traversal, Secure RTP, etc.)
 \end{itemize}
+\end{footnotesize}
 \end{frame}
 
 \begin{frame}{WebRTC with SIP}

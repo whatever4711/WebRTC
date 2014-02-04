@@ -87,6 +87,8 @@
 %\usepackage{pgfplots}
 \usetikzlibrary{calc,arrows,fit,positioning,trees,snakes,backgrounds,shadows,decorations,decorations.markings,decorations.shapes,shapes,patterns,fadings}
 \usepackage[font=footnotesize]{subfig}
+
+\usepackage[underline=true,rounded corners=false]{pgf-umlsd}
 %\usepackage{fp}
 %
 %%%  Zur Darstellung des Euro-Symbols   %%
@@ -115,10 +117,43 @@
 %%% Code Highlighting
 %\definecolor{mygray}{gray}{.75}
 \usepackage{listings} 
-\lstset{numbers=left, numberstyle=\tiny, numbersep=6pt} 
-%\lstset{language=Python}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{unibablueI},
+  ndkeywordstyle=\color{unibagreenI},
+  identifierstyle=\color{black},
+  commentstyle=\color{unibagrayI}\ttfamily,
+  stringstyle=\color{unibaredI}\ttfamily,
+  sensitive=true
+}
+
+\lstset{
+   language=JavaScript,
+  % backgroundcolor=\color{lightgray},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\scriptsize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+
+%\lstset{numbers=left, numberstyle=\tiny, numbersep=6pt} 
+\lstset{language=JavaScript}
 %\lstset{classoffset=1, morekeywords={mycontext}, keywordstyle=\color{darkgreen}, classoffset=0, keywordstyle=\color{darkblue}}
-\lstset{basicstyle=\small, showstringspaces=false, commentstyle=\color{unibagrayI}, breaklines=true, captionpos=b}
+%\lstset{basicstyle=\small, showstringspaces=false, commentstyle=\color{unibagrayI}, breaklines=true, captionpos=b}
 %\renewcommand{\lstlistingname}{Code-Ausschnitt}
 %\renewcommand{\lstlistlistingname}{Code-Ausschnitte}
 %\def\lstlistingautorefname{Code-Ausschnitt}
